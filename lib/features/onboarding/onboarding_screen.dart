@@ -28,7 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               const DocLogoAndName(),
               SizedBox(
-                height: 41.h,
+                height: 40.h,
               ),
               const DoctorImageAndText(),
               Padding(
