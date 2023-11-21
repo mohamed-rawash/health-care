@@ -23,7 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         body: SingleChildScrollView(
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 30.h, bottom: 30.h),
+          padding: EdgeInsets.only(top: 20.h, bottom: 40.h),
           child: Column(
             children: [
               const DocLogoAndName(),
@@ -36,7 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: Column(
                   children: [
                     Text(
-                      "Manage and schedule all of your medical appointments easily with Docdoc to get a new experience.",
+                      "Manage and schedule all of your medical appointments easily with DocDoc to get a new experience.",
                       textAlign: TextAlign.center,
                       style: TextStyles.font13GreyWeight400,
                     ),
