@@ -23,7 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         body: SingleChildScrollView(
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 20.h, bottom: 40.h),
+          padding: EdgeInsets.only(top: 30.h, bottom: 30.h),
           child: Column(
             children: [
               const DocLogoAndName(),
