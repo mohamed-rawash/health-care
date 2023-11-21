@@ -4,7 +4,7 @@ import 'package:health_care/features/login/ui/login_screen.dart';
 import 'package:health_care/features/onboarding/onboarding_screen.dart';
 
 class AppRouter {
-  Route generateRoute(RouteSettings settings) {
+  static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.onBoardingScreen:
         return MaterialPageRoute(

@@ -50,11 +50,21 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Flutter Demo Home Page`
-  String get title {
+  /// `DocDoc`
+  String get app_title {
     return Intl.message(
-      'Flutter Demo Home Page',
-      name: 'title',
+      'DocDoc',
+      name: 'app_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Best Doctor Appointment App`
+  String get onboarding_main_title {
+    return Intl.message(
+      'Best Doctor Appointment App',
+      name: 'onboarding_main_title',
       desc: '',
       args: [],
     );

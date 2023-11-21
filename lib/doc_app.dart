@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:health_care/core/routing/app_router.dart';
+import 'package:health_care/core/themes/colors.dart';
 import 'package:intl/intl.dart';
 
+import 'core/routing/routes.dart';
 import 'generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-import 'home_page.dart';
 
 
 class DocApp extends StatelessWidget {
@@ -15,6 +16,7 @@ class DocApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      designSize: const Size(375, 812),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Doc Doc App',
@@ -27,10 +29,12 @@ class DocApp extends StatelessWidget {
         ],
         supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          primaryColor: ColorsManager.mainBlue,
+          scaffoldBackgroundColor: ColorsManager.white,
           useMaterial3: true,
         ),
-        home: const HomePage(),
+        initialRoute: Routes.onBoardingScreen,
+        onGenerateRoute: AppRouter.generateRoute,
       ),
     );
   }
