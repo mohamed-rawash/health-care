@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_care/core/helpers/extensions.dart';
+import 'package:health_care/core/helpers/spacing.dart';
 import 'package:health_care/core/themes/colors.dart';
+import 'package:health_care/core/widgets/doc_main_button.dart';
 import 'package:health_care/features/onboarding/widgets/doc_log_and_name.dart';
 import 'package:health_care/features/onboarding/widgets/doctor_image_and_text.dart';
-import 'package:health_care/features/onboarding/widgets/get_started_button.dart';
 
+import '../../core/routing/routes.dart';
 import '../../core/themes/styles.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -37,9 +39,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     Text(
                       "Manage and schedule all of your medical appointments easily with DocDoc to get a new experience.",
                       textAlign: TextAlign.center,
-                      style: TextStyles.font13GreyWeight400,
+                      style: TextStyles.font13GreyRegular,
                     ),
-                    const GetStartedButton(),
+                    verticalSpacing(height: 30),
+                    DocMainButton(btnText: "Get Started", onPressed: () => context.pushReplacementNamed(Routes.loginScreen)),
                   ],
                 ),
               ),

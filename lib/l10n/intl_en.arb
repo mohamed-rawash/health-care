@@ -1,4 +1,5 @@
 {
   "app_title": "DocDoc",
-  "onboarding_main_title": "Best Doctor Appointment App"
+  "onboarding_main_title": "Best Doctor Appointment App",
+  "login_welcome_text": "Welcome Back"
 }
