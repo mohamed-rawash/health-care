@@ -6,7 +6,6 @@ import 'package:health_care/features/onboarding/widgets/doc_log_and_name.dart';
 import 'package:health_care/features/onboarding/widgets/doctor_image_and_text.dart';
 import 'package:health_care/features/onboarding/widgets/get_started_button.dart';
 
-import '../../core/routing/routes.dart';
 import '../../core/themes/styles.dart';
 
 class OnboardingScreen extends StatefulWidget {
