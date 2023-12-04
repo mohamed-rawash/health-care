@@ -69,6 +69,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Welcome Back`
+  String get login_welcome_text {
+    return Intl.message(
+      'Welcome Back',
+      name: 'login_welcome_text',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
