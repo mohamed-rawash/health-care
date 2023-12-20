@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_care/core/helpers/extensions.dart';
 import 'package:health_care/core/helpers/spacing.dart';
-import 'package:health_care/core/themes/colors.dart';
 import 'package:health_care/core/widgets/doc_main_button.dart';
 import 'package:health_care/features/onboarding/widgets/doc_log_and_name.dart';
 import 'package:health_care/features/onboarding/widgets/doctor_image_and_text.dart';

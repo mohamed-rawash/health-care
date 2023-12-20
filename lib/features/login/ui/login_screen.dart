@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:health_care/core/helpers/spacing.dart';
@@ -7,23 +8,19 @@ import 'package:health_care/core/widgets/doc_main_button.dart';
 import 'package:health_care/core/widgets/doc_text24_blue_bold.dart';
 import 'package:health_care/core/widgets/doc_text_form_field.dart';
 import 'package:health_care/core/widgets/social_button.dart';
+import 'package:health_care/features/login/data/models/login_request_body.dart';
+import 'package:health_care/features/login/logic/login_cubit/login_cubit.dart';
+import 'package:health_care/features/login/ui/widgets/email_and_password.dart';
+import 'package:health_care/features/login/ui/widgets/login_bloc_listener.dart';
 
 import '../../../core/themes/styles.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final formKey = GlobalKey<FormState>();
-  bool isObscureText = true;
-  bool isRemember = true;
-
-  @override
   Widget build(BuildContext context) {
+    bool isRemember = false;
     debugPrint("${"*-* " * 10} build from login ${"*-* " * 10}");
     return Scaffold(
       body: SafeArea(
@@ -48,31 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 verticalSpacing(height: 36),
-                Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      const DocTextFormField(
-                        hintText: "Email",
-                      ),
-                      verticalSpacing(height: 16),
-                      DocTextFormField(
-                        hintText: "Password",
-                        isObscureText: isObscureText,
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isObscureText = !isObscureText;
-                            });
-                          },
-                          child: Icon(isObscureText
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const EmailAndPassword(),
                 verticalSpacing(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,9 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           value: isRemember,
                           activeColor: ColorsManager.mainBlue,
                           onChanged: (value) {
-                            setState(() {
-                              isRemember = value!;
-                            });
                             debugPrint("$isRemember");
                           },
                         ),
@@ -103,7 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 verticalSpacing(height: 32),
-                DocMainButton(btnText: "Login", onPressed: () {}),
+                DocMainButton(
+                    btnText: "Login",
+                    onPressed: () {
+                      validateThenDoLogin(context: context);
+                    }),
                 verticalSpacing(height: 46),
                 Row(
                   children: [
@@ -132,33 +106,38 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SocialButton(icon: SvgPicture.asset("assets/svgs/google_logo.svg"), onTap: (){}),
+                    SocialButton(
+                        icon: SvgPicture.asset("assets/svgs/google_logo.svg"),
+                        onTap: () {}),
                     horizontalSpacing(width: 32),
-                    SocialButton(icon: SvgPicture.asset("assets/svgs/facebook_logo.svg"), onTap: (){}),
+                    SocialButton(
+                        icon: SvgPicture.asset("assets/svgs/facebook_logo.svg"),
+                        onTap: () {}),
                     horizontalSpacing(width: 32),
-                    SocialButton(icon: SvgPicture.asset("assets/svgs/apple_logo.svg"), onTap: (){}),
+                    SocialButton(
+                        icon: SvgPicture.asset("assets/svgs/apple_logo.svg"),
+                        onTap: () {}),
                   ],
                 ),
                 verticalSpacing(height: 32),
                 RichText(
                   text: TextSpan(
-                   text: "By logging, you agree to our ",
-                    style: TextStyles.font13GreyRegular,
-                    children: [
-                      TextSpan(
-                        text: "Terms & Conditions ",
-                        style: TextStyles.font13BlackMedium,
-                      ),
-                      TextSpan(
-                       text:  "and ",
-                        style: TextStyles.font13GreyRegular,
-                      ),
-                      TextSpan(
-                       text:  "PrivacyPolicy.",
-                        style: TextStyles.font13BlackMedium,
-                      ),
-                    ]
-                  ),
+                      text: "By logging, you agree to our ",
+                      style: TextStyles.font13GreyRegular,
+                      children: [
+                        TextSpan(
+                          text: "Terms & Conditions ",
+                          style: TextStyles.font13BlackMedium,
+                        ),
+                        TextSpan(
+                          text: "and ",
+                          style: TextStyles.font13GreyRegular,
+                        ),
+                        TextSpan(
+                          text: "PrivacyPolicy.",
+                          style: TextStyles.font13BlackMedium,
+                        ),
+                      ]),
                   textAlign: TextAlign.center,
                 ),
                 verticalSpacing(height: 24),
@@ -171,15 +150,27 @@ class _LoginScreenState extends State<LoginScreen> {
                           text: "Sign Up",
                           style: TextStyles.font13BlueMedium,
                         ),
-                      ]
-                  ),
+                      ]),
                   textAlign: TextAlign.center,
                 ),
+                verticalSpacing(height: 24),
+                const LoginBlocListener(),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void validateThenDoLogin({required BuildContext context}) {
+    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+      context.read<LoginCubit>().emitLoginStates(
+            LoginRequestBody(
+              email: context.read<LoginCubit>().emailController.text,
+              password: context.read<LoginCubit>().passwordController.text,
+            ),
+          );
+    }
   }
 }
